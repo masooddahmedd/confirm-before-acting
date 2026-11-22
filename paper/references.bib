@@ -1,0 +1,349 @@
+% references.bib -- verified 2026-11-22 against primary sources
+% (arXiv abstract pages, ACL Anthology, PMLR, NeurIPS/ICLR proceedings,
+%  ISCA archive, IEEE/ACM DL, Nature, ScienceDirect, ITU, GitHub).
+
+% ---------------------------------------------------------------------------
+% Tool calling and benchmarks
+% ---------------------------------------------------------------------------
+
+@inproceedings{patil2023gorilla,
+  title     = {Gorilla: Large Language Model Connected with Massive {API}s},
+  author    = {Patil, Shishir G. and Zhang, Tianjun and Wang, Xin and Gonzalez, Joseph E.},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {37},
+  year      = {2024},
+  note      = {arXiv:2305.15334 (2023)},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/2024/hash/e4c61f578ff07830f5c37378dd3ecb0d-Abstract-Conference.html}
+}
+
+@inproceedings{patil2025bfcl,
+  title     = {The {B}erkeley Function Calling Leaderboard ({BFCL}): From Tool Use to Agentic Evaluation of Large Language Models},
+  author    = {Patil, Shishir G. and Mao, Huanzhi and Yan, Fanjia and Ji, Charlie Cheng-Jie and Suresh, Vishnu and Stoica, Ion and Gonzalez, Joseph E.},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {267},
+  pages     = {48371--48392},
+  publisher = {PMLR},
+  year      = {2025},
+  url       = {https://proceedings.mlr.press/v267/patil25a.html}
+}
+
+@inproceedings{mao2026bfclaudio,
+  title     = {{BFCL} Audio: An Audio Function Calling Evaluation for Large Language Models},
+  author    = {Mao, Huanzhi and Ghai, Aditya and Dawoodani, Imra and Ginart, Tony A. and Patil, Shishir G. and Emmons, John and Gonzalez, Joseph E.},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {306},
+  pages     = {86410--86428},
+  publisher = {PMLR},
+  year      = {2026},
+  url       = {https://proceedings.mlr.press/v306/mao26b.html}
+}
+
+@article{nguyen2025auharness,
+  title   = {{AU-Harness}: An Open-Source Toolkit for Efficient and Unified Evaluation of {AU}dio-{LLM}s},
+  author  = {Nguyen, Hoang and Surapaneni, Sidharth and Kalkunte, Akshay and Mehta, Jash and Tiwari, Aman and Bamgbose, Oluwanifemi and Mahajan, Khyati and Shah, Jash and Radhakrishna, Shruthan and Madhusudhan, Sathwik Tejaswi and Yadav, Vikas and Rajeswar, Sai},
+  journal = {arXiv preprint arXiv:2509.08031},
+  year    = {2025},
+  note    = {Introduces the ServiceNow-AI/BFCL\_v3\_audio dataset},
+  url     = {https://arxiv.org/abs/2509.08031}
+}
+
+@misc{servicenow2025bfclv3audio,
+  title        = {{BFCL\_v3\_audio}: spoken version of the {B}erkeley Function Calling Leaderboard v3},
+  author       = {{ServiceNow-AI}},
+  year         = {2025},
+  howpublished = {Hugging Face dataset, \url{https://huggingface.co/datasets/ServiceNow-AI/BFCL_v3_audio}},
+  note         = {Part of the AU-Harness datasets collection; accessed 2026-11-22}
+}
+
+@article{wang2026speechevalx,
+  title   = {When Does an {ASR} Error Matter? Task-Role Diagnostics for Tool-Using Voice Agents},
+  author  = {Wang, Xiaolong and Su, Shijie and Xiong, Naqi},
+  journal = {arXiv preprint arXiv:2610.17619},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2610.17619}
+}
+
+@article{jain2025voiceagentbench,
+  title   = {{VoiceAgentBench}: Are Voice Assistants ready for agentic tasks?},
+  author  = {Jain, Dhruv and Shukla, Harshit and Rajeev, Gautam and Kulkarni, Ashish and Khatri, Chandra and Agarwal, Shubham},
+  journal = {arXiv preprint arXiv:2510.07978},
+  year    = {2025},
+  url     = {https://arxiv.org/abs/2510.07978}
+}
+
+@article{laskar2026texttovoice,
+  title   = {From Text to Voice: A Reproducible and Verifiable Framework for Evaluating Tool Calling {LLM} Agents},
+  author  = {Laskar, Md Tahmid Rahman and Fu, Xue-Yong and Sarfjoo, Seyyed Saeed and McNamara, Quinten and Robertson, Jonas and TN, Shashi Bhushan},
+  journal = {arXiv preprint arXiv:2605.15104},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2605.15104}
+}
+
+@article{lin2026fullduplexbenchv3,
+  title   = {{Full-Duplex-Bench-v3}: Benchmarking Tool Use for Full-Duplex Voice Agents Under Real-World Disfluency},
+  author  = {Lin, Guan-Ting and Chen, Chen and Chen, Zhehuai and Lee, Hung-yi},
+  journal = {arXiv preprint arXiv:2604.04847},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2604.04847}
+}
+
+@inproceedings{ross2025when2call,
+  title     = {{When2Call}: When (not) to Call Tools},
+  author    = {Ross, Hayley and Mahabaleshwarkar, Ameya Sunil and Suhara, Yoshi},
+  booktitle = {Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers)},
+  pages     = {3391--3409},
+  publisher = {Association for Computational Linguistics},
+  year      = {2025},
+  url       = {https://aclanthology.org/2025.naacl-long.174/}
+}
+
+@inproceedings{suri2026sage,
+  title     = {Structured Uncertainty guided Clarification for {LLM} Agents},
+  author    = {Suri, Manan and Mathur, Puneet and Lipka, Nedim and Dernoncourt, Franck and Rossi, Ryan A. and Manocha, Dinesh},
+  booktitle = {Findings of the Association for Computational Linguistics: ACL 2026},
+  pages     = {40811--40838},
+  publisher = {Association for Computational Linguistics},
+  address   = {San Diego, California, United States},
+  year      = {2026},
+  doi       = {10.18653/v1/2026.findings-acl.2028},
+  url       = {https://aclanthology.org/2026.findings-acl.2028/}
+}
+
+@inproceedings{ruan2024toolemu,
+  title     = {Identifying the Risks of {LM} Agents with an {LM}-Emulated Sandbox},
+  author    = {Ruan, Yangjun and Dong, Honghua and Wang, Andrew and Pitis, Silviu and Zhou, Yongchao and Ba, Jimmy and Dubois, Yann and Maddison, Chris J. and Hashimoto, Tatsunori},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  url       = {https://arxiv.org/abs/2309.15817}
+}
+
+% ---------------------------------------------------------------------------
+% ASR and models
+% ---------------------------------------------------------------------------
+
+@inproceedings{radford2023whisper,
+  title     = {Robust Speech Recognition via Large-Scale Weak Supervision},
+  author    = {Radford, Alec and Kim, Jong Wook and Xu, Tao and Brockman, Greg and McLeavey, Christine and Sutskever, Ilya},
+  booktitle = {Proceedings of the 40th International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {202},
+  pages     = {28492--28518},
+  publisher = {PMLR},
+  year      = {2023},
+  url       = {https://proceedings.mlr.press/v202/radford23a.html}
+}
+
+@article{jiang2005confidence,
+  title   = {Confidence measures for speech recognition: A survey},
+  author  = {Jiang, Hui},
+  journal = {Speech Communication},
+  volume  = {45},
+  number  = {4},
+  pages   = {455--470},
+  year    = {2005},
+  doi     = {10.1016/j.specom.2004.12.004}
+}
+
+@article{li2020nbest,
+  title   = {Improving Spoken Language Understanding By Exploiting {ASR} N-best Hypotheses},
+  author  = {Li, Mingda and Ruan, Weitong and Liu, Xinyue and Soldaini, Luca and Hamza, Wael and Su, Chengwei},
+  journal = {arXiv preprint arXiv:2001.05284},
+  year    = {2020},
+  url     = {https://arxiv.org/abs/2001.05284}
+}
+
+@inproceedings{ganesan2021nbest,
+  title     = {N-Best {ASR} Transformer: Enhancing {SLU} Performance using Multiple {ASR} Hypotheses},
+  author    = {Ganesan, Karthik and Bamdev, Pakhi and B, Jaivarsan and Venugopal, Amresh and Tushar, Abhinav},
+  booktitle = {Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 2: Short Papers)},
+  pages     = {93--98},
+  publisher = {Association for Computational Linguistics},
+  year      = {2021},
+  doi       = {10.18653/v1/2021.acl-short.14}
+}
+
+@misc{qwen2024qwen25,
+  title         = {{Qwen2.5} Technical Report},
+  author        = {{Qwen Team} and Yang, An and others},
+  year          = {2024},
+  eprint        = {2412.15115},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2412.15115}
+}
+
+@misc{grattafiori2024llama3,
+  title         = {The {Llama} 3 Herd of Models},
+  author        = {Grattafiori, Aaron and Dubey, Abhimanyu and others},
+  year          = {2024},
+  eprint        = {2407.21783},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  url           = {https://arxiv.org/abs/2407.21783}
+}
+
+% ---------------------------------------------------------------------------
+% Uncertainty, selective prediction, clarification
+% ---------------------------------------------------------------------------
+
+@inproceedings{wang2023selfconsistency,
+  title     = {Self-Consistency Improves Chain of Thought Reasoning in Language Models},
+  author    = {Wang, Xuezhi and Wei, Jason and Schuurmans, Dale and Le, Quoc and Chi, Ed and Narang, Sharan and Chowdhery, Aakanksha and Zhou, Denny},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+  url       = {https://arxiv.org/abs/2203.11171}
+}
+
+@inproceedings{kuhn2023semantic,
+  title     = {Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation},
+  author    = {Kuhn, Lorenz and Gal, Yarin and Farquhar, Sebastian},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+  url       = {https://arxiv.org/abs/2302.09664}
+}
+
+@article{farquhar2024semanticentropy,
+  title   = {Detecting hallucinations in large language models using semantic entropy},
+  author  = {Farquhar, Sebastian and Kossen, Jannik and Kuhn, Lorenz and Gal, Yarin},
+  journal = {Nature},
+  volume  = {630},
+  number  = {8017},
+  pages   = {625--630},
+  year    = {2024},
+  doi     = {10.1038/s41586-024-07421-0}
+}
+
+@inproceedings{geifman2017selective,
+  title     = {Selective Classification for Deep Neural Networks},
+  author    = {Geifman, Yonatan and El-Yaniv, Ran},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {30},
+  year      = {2017},
+  url       = {https://papers.nips.cc/paper/7073-selective-classification-for-deep-neural-networks}
+}
+
+@inproceedings{kamath2020selective,
+  title     = {Selective Question Answering under Domain Shift},
+  author    = {Kamath, Amita and Jia, Robin and Liang, Percy},
+  booktitle = {Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics},
+  pages     = {5684--5696},
+  publisher = {Association for Computational Linguistics},
+  year      = {2020},
+  doi       = {10.18653/v1/2020.acl-main.503}
+}
+
+@article{kuhn2022clam,
+  title   = {{CLAM}: Selective Clarification for Ambiguous Questions with Generative Language Models},
+  author  = {Kuhn, Lorenz and Gal, Yarin and Farquhar, Sebastian},
+  journal = {arXiv preprint arXiv:2212.07769},
+  year    = {2022},
+  url     = {https://arxiv.org/abs/2212.07769}
+}
+
+@inproceedings{zhang2025clarify,
+  title     = {Clarify When Necessary: Resolving Ambiguity Through Interaction with {LM}s},
+  author    = {Zhang, Michael J. Q. and Choi, Eunsol},
+  booktitle = {Findings of the Association for Computational Linguistics: NAACL 2025},
+  pages     = {5541--5558},
+  publisher = {Association for Computational Linguistics},
+  year      = {2025},
+  doi       = {10.18653/v1/2025.findings-naacl.306},
+  note      = {arXiv:2311.09469 (2023)}
+}
+
+% ---------------------------------------------------------------------------
+% Spoken dialogue systems: confirmation and error handling
+% ---------------------------------------------------------------------------
+
+@inproceedings{bohus2005sorry,
+  title     = {Sorry, {I} Didn't Catch That! -- An Investigation of Non-understanding Errors and Recovery Strategies},
+  author    = {Bohus, Dan and Rudnicky, Alexander I.},
+  booktitle = {Proceedings of the 6th SIGdial Workshop on Discourse and Dialogue},
+  pages     = {128--143},
+  address   = {Lisbon, Portugal},
+  year      = {2005},
+  doi       = {10.18653/v1/2005.sigdial-1.14}
+}
+
+@inproceedings{bohus2005rejection,
+  title     = {A principled approach for rejection threshold optimization in spoken dialog systems},
+  author    = {Bohus, Dan and Rudnicky, Alexander I.},
+  booktitle = {Proc. Interspeech 2005},
+  pages     = {2781--2784},
+  year      = {2005},
+  doi       = {10.21437/Interspeech.2005-820}
+}
+
+@inproceedings{sturm1999arise,
+  title     = {Dialogue management in the {D}utch {ARISE} train timetable information system},
+  author    = {Sturm, Janienke and den Os, Els and Boves, Lou},
+  booktitle = {Proc. 6th European Conference on Speech Communication and Technology (Eurospeech 1999)},
+  pages     = {1419--1422},
+  year      = {1999},
+  doi       = {10.21437/Eurospeech.1999-366}
+}
+
+@inproceedings{bouwman1999confidence,
+  title     = {Incorporating confidence measures in the {D}utch train timetable information system developed in the {ARISE} project},
+  author    = {Bouwman, Gies and Sturm, Janienke and Boves, Louis},
+  booktitle = {Proc. IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP)},
+  volume    = {1},
+  year      = {1999},
+  doi       = {10.1109/ICASSP.1999.758170}
+}
+
+@inproceedings{kim2021clarifying,
+  title     = {Deciding Whether to Ask Clarifying Questions in Large-Scale Spoken Language Understanding},
+  author    = {Kim, Joo-Kyung and Wang, Guoyin and Lee, Sungjin and Kim, Young-Bum},
+  booktitle = {Proc. IEEE Automatic Speech Recognition and Understanding Workshop (ASRU)},
+  pages     = {869--876},
+  year      = {2021},
+  doi       = {10.1109/ASRU51503.2021.9688265}
+}
+
+% ---------------------------------------------------------------------------
+% Data, standards, software
+% ---------------------------------------------------------------------------
+
+@inproceedings{piczak2015esc,
+  title     = {{ESC}: Dataset for Environmental Sound Classification},
+  author    = {Piczak, Karol J.},
+  booktitle = {Proceedings of the 23rd ACM International Conference on Multimedia},
+  pages     = {1015--1018},
+  year      = {2015},
+  doi       = {10.1145/2733373.2806390}
+}
+
+@misc{itu1988g711,
+  title        = {Recommendation {G.711}: Pulse code modulation ({PCM}) of voice frequencies},
+  author       = {{ITU-T}},
+  year         = {1988},
+  howpublished = {International Telecommunication Union, \url{https://www.itu.int/rec/T-REC-G.711}},
+  note         = {Approved 1988-11-25}
+}
+
+@misc{ctranslate2,
+  title        = {{CTranslate2}: Fast inference engine for Transformer models},
+  author       = {{OpenNMT}},
+  howpublished = {\url{https://github.com/OpenNMT/CTranslate2}},
+  note         = {Software, version 4.8.2, accessed 2026-11-22},
+  year         = {2026}
+}
+
+@misc{fasterwhisper,
+  title        = {faster-whisper: Faster Whisper transcription with {CTranslate2}},
+  author       = {{SYSTRAN}},
+  howpublished = {\url{https://github.com/SYSTRAN/faster-whisper}},
+  note         = {Software, version 1.2.1, accessed 2026-11-22},
+  year         = {2026}
+}
+
+@misc{ollama,
+  title        = {Ollama},
+  author       = {{Ollama}},
+  howpublished = {\url{https://github.com/ollama/ollama}},
+  note         = {Software, version 0.11.4, accessed 2026-11-22},
+  year         = {2026}
+}

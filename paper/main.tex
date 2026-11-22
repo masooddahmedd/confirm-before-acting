@@ -1,0 +1,141 @@
+% Confirm-before-acting paper. Build: tectonic main.tex (or pdflatex + bibtex), or upload the folder to Overleaf.
+% Every number in tables.tex and numbers.tex is written by make_paper.py from the result files;
+% do not type numbers into this file by hand.
+\documentclass[11pt]{article}
+\usepackage[final]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{adjustbox}
+
+\input{numbers.tex}
+
+\title{Read It Back When the Action Is Unstable:\\Confirmation Policies for Spoken Tool Calling}
+
+\author{Masood Ahmed \\
+  Independent researcher, Islamabad, Pakistan \\
+  \texttt{masoodd.ahmedd123@gmail.com}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A voice agent that calls tools can read an action back before doing it (``Area of a triangle, base 10, height 5, is that right?''). Confirming every action makes the agent tedious; confirming none lets it act on misheard words and on its own misreadings. Recent benchmarks measure how often speech recognition errors turn into wrong tool calls, but not which signal should decide when to ask. We compare confirmation policies on \NItems{} spoken requests from BFCL v3 audio, played clean, through a simulated phone line, and with environmental noise or background chatter, with Whisper as the recogniser and Qwen2.5-7B and Llama-3.1-8B as agents. Utterance-level recogniser confidence is a weak guide. A much better one is whether the agent's call changes when it is given the recogniser's other likely transcripts: confirming only those requests reduces wrong actions taken without asking from \HeadNever\% to \HeadEither\% of requests while asking on \HeadAsked\% (Qwen, phone line with 10 dB noise), and at a fixed 20\% confirmation budget it leaves \GainMin{} to \GainMax{} fewer wrong actions per 100 requests than utterance confidence, with 95\% intervals excluding zero for both agents in all four conditions without chatter. Most of the wrong actions it stops are not mishearings but the agent's own mistakes, and re-sampling the agent on a single transcript works about as well at the same budget. The useful signal is therefore the stability of the action under a small nudge, and combining both nudges leaves the fewest wrong actions. Under loud background chatter, where most requests are misheard, no policy keeps both wrong actions and confirmations low. Code and results are public.
+\end{abstract}
+
+\section{Introduction}
+
+Spoken requests to a tool-calling agent fail in two ways. The recogniser can mishear (``fifteen'' for ``fifty''), and the agent can misread a request it heard correctly (the wrong function, a missing argument, a unit in the wrong place). Either way the agent takes a wrong action. The classical remedy from spoken dialogue systems is confirmation: read the action back and let the user say no \citep{sturm1999arise,bohus2005rejection}. Confirmation has a cost, since every read-back is a turn the user did not ask for, so a deployed agent needs a rule for \emph{when} to ask.
+
+Recent work has made the size of the problem clear. Speech versions of function-calling benchmarks show that recognition errors cost several points of call accuracy, mostly through misheard argument values \citep{mao2026bfclaudio,wang2026speechevalx,laskar2026texttovoice,jain2025voiceagentbench}. These studies diagnose the failure; they do not test what an agent should do about it at run time. Text-only work on when an LLM should ask a clarifying question \citep{kuhn2022clam,zhang2025clarify,ross2025when2call,suri2026sage} does not see the recogniser at all.
+
+We compare confirmation policies directly. Every policy decides, per request, whether to read the action back, and we score the trade-off between wrong actions taken without asking and the share of requests confirmed. We ask:
+\begin{enumerate}
+\item Which run-time signal best ranks requests for confirmation: recogniser confidence at the utterance, word or argument level, disagreement among transcript variants, or the agent's own self-consistency?
+\item How much of the benefit comes from catching mishearings, and how much from catching the agent's own mistakes?
+\item What does the better signal cost in extra agent calls, and where does it stop helping?
+\end{enumerate}
+
+Our main finding is that the most useful signal is not how sure the recogniser is but how stable the agent's action is. Giving the agent the recogniser's 5-best hypotheses and a second recogniser's transcript, and confirming whenever any of them changes the call, beats every recogniser-confidence ranking. It works mostly because it exposes calls the agent was guessing at, whatever the cause; re-sampling the agent on the same transcript exposes many of the same calls. We release the code, the per-request results and the scripts that write every number in this paper.\footnote{\url{https://github.com/masooddahmedd/confirm-before-acting}}
+
+\section{Related work}
+
+\paragraph{Spoken tool calling.} BFCL \citep{patil2025bfcl}, built on Gorilla \citep{patil2023gorilla}, scores function calls by matching their syntax trees against allowed values. BFCL Audio \citep{mao2026bfclaudio} evaluates pipelined and end-to-end audio function calling under accents, disfluencies and noise, and AU-Harness \citep{nguyen2025auharness} includes a spoken version of BFCL v3 as one of its tasks, which is the data we use. VoiceAgentBench \citep{jain2025voiceagentbench} covers spoken agentic queries in English and six Indic languages, \citet{laskar2026texttovoice} convert text tool benchmarks to noisy audio and find that most voice failures are misheard argument values, and \citet{wang2026speechevalx} show that edits to numbers and negations cost the most. Full-Duplex-Bench-v3 \citep{lin2026fullduplexbenchv3} adds real disfluent speech and chained calls. All of these measure the damage; we evaluate a run-time defence.
+
+\paragraph{Confirmation in dialogue systems.} Classical systems chose between explicit, implicit and no confirmation from recogniser confidence \citep{sturm1999arise,bouwman1999confidence}, set confidence thresholds per dialogue state by weighing the cost of a wrong concept against an extra turn \citep{bohus2005rejection}, and studied recovery after non-understanding \citep{bohus2005sorry}. \citet{kim2021clarifying} train a model that decides when a voice assistant should ask a clarifying question. Confidence measures for recognition are surveyed by \citet{jiang2005confidence}, and n-best hypotheses are known to help spoken language understanding \citep{li2020nbest,ganesan2021nbest}. These systems predate LLM agents, whose own errors, as we show, outnumber the recogniser's.
+
+\paragraph{Selective prediction and clarification for LLMs.} Selective classification trades coverage for error \citep{geifman2017selective,kamath2020selective}; a confirmation policy is the same trade with ``ask the user'' in place of ``abstain''. Agreement among samples is a strong signal of correctness \citep{wang2023selfconsistency}, and semantic entropy over sampled answers detects confabulation \citep{kuhn2023semantic,farquhar2024semanticentropy}. For tool use, When2Call \citep{ross2025when2call} tests whether a model should call, ask or decline, SAGE \citep{suri2026sage} asks when the expected value of a parameter's information is high, and ToolEmu \citep{ruan2024toolemu} shows that agents often take risky actions. Our transcript-variant signal is a cheap, recogniser-driven relative of sample agreement, and we compare the two directly.
+
+\section{Setup}
+
+\paragraph{Requests.} We use the spoken version of BFCL v3 distributed with AU-Harness \citep{nguyen2025auharness,servicenow2025bfclv3audio}: the \emph{simple}, \emph{multiple} and \emph{irrelevance} subsets, \NItemsAll{} requests with the function schemas and allowed argument values of the original benchmark. We drop clips longer than one 30-second Whisper window, leaving \NItems{} (\NSimple{} simple, \NMultiple{} with several candidate functions, \NIrrelevance{} where no function fits and the correct answer is no call). The audio is synthetic speech that paraphrases the written question, often with an extra sentence of context.
+
+\paragraph{Listening conditions.} Each request is heard in six conditions: the clean audio; a phone line (band-pass 300--3400\,Hz, resampled to 8\,kHz, G.711 $\mu$-law \citep{itu1988g711}, back to 16\,kHz); the phone line with environmental noise from ESC-50 \citep{piczak2015esc} at 10\,dB and 0\,dB SNR; and the phone line with background chatter made of three other requests from the benchmark at 5\,dB and 0\,dB. Noise clips and talkers are drawn per request with a fixed seed.
+
+\paragraph{Recognisers.} Whisper large-v3-turbo \citep{radford2023whisper}, run through faster-whisper and CTranslate2,\footnote{faster-whisper 1.2.1 and CTranslate2 4.8.2: \url{https://github.com/SYSTRAN/faster-whisper}.} with beam size 5, returns the top transcript, per-word probabilities, the utterance log-probability and its 5-best list. Whisper large-v3 gives a second, independent transcript. Word error rates against the clean-audio transcript are \WerPhone\% on the phone line, \WerNoiseTen\% and \WerNoiseZero\% with noise, and \WerChatterFive\% and \WerChatterZero\% with chatter (Appendix Table~\ref{tab:acc}).
+
+\paragraph{Agents.} Qwen2.5-7B-Instruct \citep{qwen2024qwen25} and Llama-3.1-8B-Instruct \citep{grattafiori2024llama3}, served by Ollama\footnote{Ollama 0.11.4: \url{https://github.com/ollama/ollama}.} with greedy decoding, a fixed seed and JSON output. The system prompt (Appendix~\ref{app:prompt}) lists the request's function schemas and asks for a list of calls, or an empty list when no function fits. Calls are graded with a reimplementation of BFCL's AST checker: the right function, every required argument present with an allowed value, optional arguments absent or allowed, no unknown arguments, and no call at all for irrelevance requests. On the clean transcript Qwen is right on \QwenAccSaid\% of requests and Llama on \LlamaAccSaid\%.
+
+\section{Confirmation policies and evaluation}
+
+\paragraph{What a confirmation does.} If the agent calls nothing there is nothing to confirm. Otherwise a policy either acts or reads the call back. We simulate an ideal user who always rejects a wrong read-back and accepts a right one. Our main measure is the share of requests on which the agent \emph{takes a wrong action without asking}: a confirmed wrong action is stopped whatever caused it, and a confirmed right action costs one unnecessary turn. We report the confirmation rate next to it. Missed actions, where the agent calls nothing although a call was needed, cannot be fixed by confirming and are counted apart (Qwen \QwenMissedMin{} to \QwenMissedMax{} of \NItems{} without chatter, Llama \LlamaMissedMin{} to \LlamaMissedMax). A second, hearing-only measure replaces a confirmed action by the agent's action on the clean transcript, so that only mishearing counts as preventable (Appendix Table~\ref{tab:hearing}).
+
+\paragraph{Which mistakes are mishearings.} Splitting wrong actions into mishearing and the agent's own mistakes needs a reference for what the user said. The benchmark's written question is the wrong reference: because the audio paraphrases it, using it marks \QwenQuestionMisheard\% (Qwen) and \LlamaQuestionMisheard\% (Llama) of requests on \emph{clean} audio as misheard. We use the clean-audio transcript instead. A wrong action is a mishearing if the agent's call on the clean transcript is right and its call on the degraded transcript is wrong; otherwise it is an agent mistake. The main measure does not depend on this choice.
+
+\paragraph{Signals.} A policy confirms requests whose signal is high.
+\begin{itemize}
+\item \textbf{Utterance confidence}: the negative average log-probability of the top transcript.
+\item \textbf{Lowest word confidence}: one minus the smallest word probability.
+\item \textbf{Argument-word confidence}: one minus the smallest probability among transcript words that appear in the call's argument values.
+\item \textbf{Transcript variants}: the agent is also run on each distinct 5-best hypothesis and on the second recogniser's transcript; the signal is whether, and how many of, these calls differ from the call on the top transcript, compared after normalising strings and numbers.
+\item \textbf{Agent samples (self-consistency)}: the agent answers the top transcript 4 more times at temperature 0.7 with fixed seeds; the signal is whether any sample's call differs from the greedy call.
+\end{itemize}
+Disagreement signals are nearly yes/no, so we report them in two forms: as a yes/no rule at its own confirmation rate, and as a ranked policy that puts every disagreeing request first and breaks ties by argument-word confidence, so it can be held to a budget.
+
+\paragraph{Budgets and inference.} Ranked policies are held to confirmation budgets of 5, 10, 20 and 30\% of requests. To avoid tuning on the requests being scored, requests are split in two halves by a hash of their id; the threshold for a budget is chosen on one half and applied to the other, in both directions, so that every request gets exactly one out-of-sample decision. We compare policies with 95\% paired bootstrap intervals over requests (2{,}000 resamples).
+
+\section{Results}
+
+\input{tables.tex}
+
+\begin{figure*}[t]\centering
+\includegraphics[width=0.86\textwidth]{fig_tradeoff.pdf}
+\caption{Wrong actions taken without asking against requests confirmed, as the threshold of each ranked policy sweeps over all requests (descriptive, not cross-fitted). Dot: confirm when any transcript variant disagrees. Square: confirm every action.}\label{fig:tradeoff}
+\end{figure*}
+
+\paragraph{Transcript variants beat recogniser confidence.} Table~\ref{tab:main} gives the main result. Without confirmation the agents act wrongly on \QwenNeverMin--\QwenNeverMax\% (Qwen) and \LlamaNeverMin--\LlamaNeverMax\% (Llama) of requests in the four conditions without chatter. Confirming when any transcript variant changes the call brings this down to \QwenEitherMin--\QwenEitherMax\% at \QwenAskedMin--\QwenAskedMax\% asked for Qwen, and to \LlamaEitherMin--\LlamaEitherMax\% at \LlamaAskedMin--\LlamaAskedMax\% asked for Llama. Held to a 20\% budget (realised \RealisedMin--\RealisedMax\%), the ranked variant policy leaves \GainMin{} to \GainMax{} fewer wrong actions per 100 requests than utterance confidence, and the interval excludes zero for both agents in all four conditions. The gap needs some budget: at 5\% the variant policy is reliably better for Qwen in \SigFiveQwen{} of the 4 conditions and for Llama in \SigFiveLlama, at 10\% in \SigTenQwen{} and \SigTenLlama, and at 20\% and 30\% in all four for both. Figure~\ref{fig:tradeoff} shows the whole trade-off. Confirming everything removes all wrong actions but asks on \AlwaysMin--\AlwaysMax\% of requests.
+
+The word-level signals are no improvement on the utterance. Ranking by the lowest word probability or by the probability of the words that end up in the arguments stays within \WordMaxAbs{} points of utterance confidence; over \WordN{} comparisons (2 agents, 6 conditions, 2 signals, 4 budgets) it is reliably better \WordBetter{} time, by \WordBetterBy{} points, and reliably worse \WordWorse{} times.
+
+\paragraph{Why it works: most wrong actions are the agent's.} Without chatter, only \HearCausedMin{} to \HearCausedMax{} of \NItems{} requests per degraded condition go wrong because of the audio, while the agent acts wrongly on \AgentWrongMin--\AgentWrongMax\% of all requests (Table~\ref{tab:catch}). At the same number of confirmations, transcript variants catch \CatchHearMin--\CatchHearMax\% of the mishearing-caused wrong actions on the phone line and with 10\,dB noise, against \CatchHearUttMin--\CatchHearUttMax\% for utterance confidence. More importantly, they also catch \CatchAgentMin--\CatchAgentMax\% of the agent's own mistakes, against \CatchAgentUttMin--\CatchAgentUttMax\%. A variant usually differs from the top transcript in a small way (``ten'' for ``10'', a comma, one function word). When such a change flips the call, the agent was not reading the request robustly, and the call is often wrong even on the clean transcript. Under the hearing-only measure, which gives no credit for catching the agent's mistakes, the room to improve is small; the variant policy is still ahead of utterance confidence at 20\% in all \HearN{} degraded conditions, by \HearDiffMin{} to \HearDiffMax{} points, reliably in \HearSig{} (Appendix Table~\ref{tab:hearing}).
+
+\paragraph{Cost.} Each variant is an extra agent call. The calls are independent and can run in parallel, so latency stays close to one call, but compute grows. Table~\ref{tab:cost} shows that one extra call already helps: the second recogniser alone or the second beam hypothesis alone cuts Qwen's wrong actions from \HeadNever\% to \CostOneWrongMin--\CostOneWrongMax\% at \CostOneAskedMin--\CostOneAskedMax\% asked, and most of the full benefit arrives with four beam hypotheses. Across conditions at least one variant differs as text from the top transcript on \TextsDifferMin--\TextsDifferMax\% of requests without chatter, but most such differences do not change the call; only those that do trigger a confirmation.
+
+\paragraph{Transcript variants against self-consistency.} If the variants mainly expose unstable calls, any perturbation of the agent might do. Table~\ref{tab:sc} tests this with the same budget of 4 extra calls. At a 20\% budget the two nudges are not reliably different for either agent in any condition (differences \ScDiffMin{} to \ScDiffMax{} points). At 30\% they part ways by agent: for Qwen the transcript variants are reliably ahead in \ScThirtyQwenVarBetter{} of 4 conditions, by \ScThirtyQwenAheadMin{} to \ScThirtyQwenAheadMax{} points, while for Llama the samples are ahead by \ScThirtyLlamaAheadMin{} to \ScThirtyLlamaAheadMax{} points, never reliably. The agents differ mainly in how often their samples disagree: Qwen's on only \QwenSampAskedMin--\QwenSampAskedMax\% of requests, Llama's on \LlamaSampAskedMin--\LlamaSampAskedMax\%. A nearly deterministic agent therefore gets little from re-sampling, and the transcript variants, which fire on a similar share of requests for both agents, are the more predictable choice. The two nudges catch partly different calls: confirming when either disagrees leaves the fewest wrong actions of any rule we test, \QwenBothMin--\QwenBothMax\% for Qwen at \QwenBothAskedMin--\QwenBothAskedMax\% asked and \LlamaBothMin--\LlamaBothMax\% for Llama at \LlamaBothAskedMin--\LlamaBothAskedMax\% asked.
+
+\paragraph{Background chatter.} Chatter is where the picture changes. At 0\,dB the recogniser's word error rate is \WerChatterZero\%, mishearing causes \HearCausedChatMin{} to \HearCausedChatMax{} wrong actions per condition, and the agent finds no fitting function far more often (\QwenMissedChatter{} missed actions for Qwen, \LlamaMissedChatter{} for Llama). The yes/no variant rule still stops almost every wrong action, but it has to ask on \ChatterAskedMin--\ChatterAskedMax\% of requests. Held to 20\%, the variant policy is reliably better than utterance confidence only for Qwen at 5\,dB; in this regime recogniser confidence is itself a fair guide, catching most mishearing-caused wrong actions (Table~\ref{tab:catch}).
+
+\section{Discussion}
+
+For a practitioner the result is a simple recipe. Run the agent on the top transcript and on one or more alternatives, either the recogniser's next beam hypotheses or a second recogniser, and read the action back when the calls disagree. If the agent's sampling is noisy, sampled answers are a comparable signal, and the union of both is better still. Recogniser confidence alone is the weakest of the signals we test unless the audio is very poor.
+
+The finding also changes what ``confirmation'' is for. Classical policies treated it as a defence against the recogniser \citep{sturm1999arise,bohus2005rejection}. With an LLM in the loop, most wrong actions on reasonable audio are the agent's, and a read-back is just as useful against those. Disagreement among nudged inputs is a cheap way to find them, close in spirit to self-consistency \citep{wang2023selfconsistency} but driven by the uncertainty the recogniser already exposes.
+
+\section{Limitations}
+
+The benchmark speech is synthetic; real callers hesitate, correct themselves and talk over noise, which should make mishearing more common than here. The simulated user always rejects a wrong read-back; real users sometimes accept one, which would shrink every policy's benefit, though not obviously their ranking. A rejected action is counted as stopped, not as fixed; the agent still has to get it right on the next turn. Requests are single-turn, English, and need at most a few calls. We test two 7--8B open agents; stronger agents make fewer mistakes of their own, so a larger share of their wrong actions would come from mishearing, where recogniser confidence does better. Self-consistency was run on the four conditions without chatter only, with one temperature and 4 samples. Thresholds are cross-fitted, but the set of signals, the tie-breaking rule and the budgets were chosen while looking at results on all requests, and the curves in Figure~\ref{fig:tradeoff} are descriptive. Under loud chatter no policy keeps both wrong actions and confirmations low; there the fix is a better recogniser, not a better rule for asking.
+
+\section{Conclusion}
+
+When a voice agent should read an action back is better decided by how stable its action is than by how confident its recogniser is. Checking whether the call survives the recogniser's alternative transcripts, or a few sampled answers, stops most wrong actions while asking on about a fifth to a third of requests, and it beats recogniser confidence at the same budget because most wrong actions on reasonable audio are the agent's own. Speech benchmarks for agents should report the wrong-action and confirmation trade-off, not only call accuracy.
+
+\section*{Use of AI}
+Experiments were run and this manuscript was drafted with the help of an AI coding assistant; every number in the paper is generated by the released scripts from the released result files, and the author is responsible for the content.
+
+\bibliography{references}
+
+\appendix
+\section{Agent prompt}
+\label{app:prompt}
+\begin{quote}\small
+You are a voice assistant that acts by calling functions. The user's words come from a speech recogniser.\\[2pt]
+Available functions (JSON schema):\\
+\textit{\{the request's function schemas\}}\\[2pt]
+Reply with JSON only, in this exact shape:\\
+\texttt{\{"calls": [\{"name": "<function name>", "arguments": \{<argument>: <value>\}\}]\}}\\
+Use only the functions above and only arguments in their schemas, with values of the right type.
+If none of the functions fits the request, reply \texttt{\{"calls": []\}}.
+\end{quote}
+
+\section{Additional tables}
+Table~\ref{tab:acc} gives the recogniser's word error rate, how often the transcript variants differ as text, and the agents' call accuracy and error counts per condition. Table~\ref{tab:hearing} repeats the main comparison under the hearing-only measure.
+
+\input{appendix_tables.tex}
+
+\end{document}

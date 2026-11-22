@@ -1,0 +1,95 @@
+# agent llama3.1_8b  metric hearing  reference clean
+
+== clean  n=829  acc heard 0.732  said 0.732  wrong actions 222 (hearing-caused 0)  missed 0
+   never                                  wrong 0.268  confirm 0.000
+   always                                 wrong 0.268  confirm 0.867
+   oracle                                 wrong 0.268  confirm 0.000
+   n-best disagrees (any)                 wrong 0.268  confirm 0.274
+   second recogniser disagrees            wrong 0.268  confirm 0.045
+   either disagrees                       wrong 0.268  confirm 0.279
+   agent samples disagree (4 samples)     wrong 0.268  confirm 0.352
+   beam alternatives 2-5 disagree (4 calls) wrong 0.268  confirm 0.271
+   either disagrees or samples disagree   wrong 0.268  confirm 0.456
+   agent sample disagreement, then argument confidence b0.05: w 0.268 c 0.051 vs variants +0.000 [+0.000,+0.000]  b0.1: w 0.268 c 0.097 vs variants +0.000 [+0.000,+0.000]  b0.2: w 0.268 c 0.201 vs variants +0.000 [+0.000,+0.000]  b0.3: w 0.268 c 0.303 vs variants +0.000 [+0.000,+0.000]
+   utterance confidence                   b0.05: w 0.268 c 0.051  b0.1: w 0.268 c 0.104  b0.2: w 0.268 c 0.198  b0.3: w 0.268 c 0.309
+   lowest word confidence                 b0.05: w 0.268 c 0.048 d +0.000 [+0.000,+0.000]  b0.1: w 0.268 c 0.100 d +0.000 [+0.000,+0.000]  b0.2: w 0.268 c 0.193 d +0.000 [+0.000,+0.000]  b0.3: w 0.268 c 0.298 d +0.000 [+0.000,+0.000]
+   argument-word confidence               b0.05: w 0.268 c 0.052 d +0.000 [+0.000,+0.000]  b0.1: w 0.268 c 0.097 d +0.000 [+0.000,+0.000]  b0.2: w 0.268 c 0.198 d +0.000 [+0.000,+0.000]  b0.3: w 0.268 c 0.306 d +0.000 [+0.000,+0.000]
+   n-best disagreement                    b0.05: w 0.268 c 0.025 d +0.000 [+0.000,+0.000]  b0.1: w 0.268 c 0.064 d +0.000 [+0.000,+0.000]  b0.2: w 0.268 c 0.138 d +0.000 [+0.000,+0.000]  b0.3: w 0.268 c 0.274 d +0.000 [+0.000,+0.000]
+   disagreement, then argument confidence b0.05: w 0.268 c 0.053 d +0.000 [+0.000,+0.000]  b0.1: w 0.268 c 0.099 d +0.000 [+0.000,+0.000]  b0.2: w 0.268 c 0.201 d +0.000 [+0.000,+0.000]  b0.3: w 0.268 c 0.298 d +0.000 [+0.000,+0.000]
+
+== phone  n=829  acc heard 0.727  said 0.732  wrong actions 226 (hearing-caused 10)  missed 0
+   never                                  wrong 0.273  confirm 0.000
+   always                                 wrong 0.261  confirm 0.869
+   oracle                                 wrong 0.261  confirm 0.012
+   n-best disagrees (any)                 wrong 0.262  confirm 0.256
+   second recogniser disagrees            wrong 0.262  confirm 0.057
+   either disagrees                       wrong 0.261  confirm 0.262
+   agent samples disagree (4 samples)     wrong 0.263  confirm 0.357
+   beam alternatives 2-5 disagree (4 calls) wrong 0.262  confirm 0.252
+   either disagrees or samples disagree   wrong 0.261  confirm 0.439
+   agent sample disagreement, then argument confidence b0.05: w 0.269 c 0.052 vs variants +0.000 [+0.000,+0.000]  b0.1: w 0.267 c 0.094 vs variants +0.000 [+0.000,+0.000]  b0.2: w 0.267 c 0.194 vs variants +0.002 [+0.000,+0.006]  b0.3: w 0.265 c 0.308 vs variants +0.005 [+0.001,+0.010]
+   utterance confidence                   b0.05: w 0.270 c 0.047  b0.1: w 0.270 c 0.098  b0.2: w 0.270 c 0.210  b0.3: w 0.268 c 0.293
+   lowest word confidence                 b0.05: w 0.271 c 0.051 d +0.001 [-0.002,+0.006]  b0.1: w 0.271 c 0.099 d +0.001 [-0.002,+0.006]  b0.2: w 0.265 c 0.198 d -0.005 [-0.011,+0.000]  b0.3: w 0.263 c 0.296 d -0.005 [-0.011,+0.001]
+   argument-word confidence               b0.05: w 0.273 c 0.053 d +0.002 [+0.000,+0.006]  b0.1: w 0.269 c 0.101 d -0.001 [-0.007,+0.004]  b0.2: w 0.267 c 0.195 d -0.004 [-0.008,+0.000]  b0.3: w 0.267 c 0.300 d -0.001 [-0.006,+0.004]
+   n-best disagreement                    b0.05: w 0.268 c 0.027 d -0.002 [-0.008,+0.004]  b0.1: w 0.264 c 0.071 d -0.006 [-0.012,+0.000]  b0.2: w 0.264 c 0.134 d -0.006 [-0.012,+0.000]  b0.3: w 0.262 c 0.256 d -0.006 [-0.013,+0.000]
+   disagreement, then argument confidence b0.05: w 0.269 c 0.052 d -0.001 [-0.007,+0.004]  b0.1: w 0.267 c 0.100 d -0.004 [-0.008,+0.000]  b0.2: w 0.264 c 0.204 d -0.006 [-0.012,-0.001]  b0.3: w 0.261 c 0.300 d -0.007 [-0.013,-0.002]
+
+== phone_noise10  n=829  acc heard 0.717  said 0.732  wrong actions 235 (hearing-caused 20)  missed 0
+   never                                  wrong 0.283  confirm 0.000
+   always                                 wrong 0.259  confirm 0.867
+   oracle                                 wrong 0.259  confirm 0.024
+   n-best disagrees (any)                 wrong 0.262  confirm 0.247
+   second recogniser disagrees            wrong 0.265  confirm 0.076
+   either disagrees                       wrong 0.262  confirm 0.251
+   agent samples disagree (4 samples)     wrong 0.268  confirm 0.351
+   beam alternatives 2-5 disagree (4 calls) wrong 0.263  confirm 0.246
+   either disagrees or samples disagree   wrong 0.262  confirm 0.429
+   agent sample disagreement, then argument confidence b0.05: w 0.277 c 0.047 vs variants +0.002 [+0.000,+0.006]  b0.1: w 0.277 c 0.095 vs variants +0.005 [+0.001,+0.010]  b0.2: w 0.274 c 0.205 vs variants +0.007 [+0.002,+0.013]  b0.3: w 0.269 c 0.308 vs variants +0.007 [+0.002,+0.013]
+   utterance confidence                   b0.05: w 0.280 c 0.045  b0.1: w 0.277 c 0.099  b0.2: w 0.274 c 0.200  b0.3: w 0.271 c 0.298
+   lowest word confidence                 b0.05: w 0.280 c 0.043 d +0.000 [-0.005,+0.005]  b0.1: w 0.277 c 0.098 d +0.000 [-0.005,+0.005]  b0.2: w 0.267 c 0.209 d -0.007 [-0.013,-0.002]  b0.3: w 0.264 c 0.298 d -0.007 [-0.014,-0.001]
+   argument-word confidence               b0.05: w 0.280 c 0.048 d +0.000 [-0.004,+0.004]  b0.1: w 0.274 c 0.101 d -0.004 [-0.010,+0.002]  b0.2: w 0.273 c 0.211 d -0.001 [-0.007,+0.005]  b0.3: w 0.271 c 0.304 d +0.000 [-0.006,+0.006]
+   n-best disagreement                    b0.05: w 0.277 c 0.029 d -0.002 [-0.008,+0.004]  b0.1: w 0.273 c 0.071 d -0.005 [-0.012,+0.001]  b0.2: w 0.267 c 0.141 d -0.007 [-0.016,+0.001]  b0.3: w 0.262 c 0.247 d -0.010 [-0.017,-0.002]
+   disagreement, then argument confidence b0.05: w 0.275 c 0.047 d -0.005 [-0.011,+0.000]  b0.1: w 0.273 c 0.104 d -0.005 [-0.011,+0.000]  b0.2: w 0.267 c 0.199 d -0.007 [-0.014,-0.001]  b0.3: w 0.262 c 0.300 d -0.010 [-0.017,-0.002]
+
+== phone_noise0  n=829  acc heard 0.666  said 0.732  wrong actions 275 (hearing-caused 65)  missed 2
+   never                                  wrong 0.332  confirm 0.000
+   always                                 wrong 0.253  confirm 0.866
+   oracle                                 wrong 0.253  confirm 0.078
+   n-best disagrees (any)                 wrong 0.263  confirm 0.327
+   second recogniser disagrees            wrong 0.271  confirm 0.157
+   either disagrees                       wrong 0.259  confirm 0.345
+   agent samples disagree (4 samples)     wrong 0.286  confirm 0.369
+   beam alternatives 2-5 disagree (4 calls) wrong 0.264  confirm 0.324
+   either disagrees or samples disagree   wrong 0.258  confirm 0.496
+   agent sample disagreement, then argument confidence b0.05: w 0.315 c 0.049 vs variants +0.005 [-0.001,+0.012]  b0.1: w 0.305 c 0.103 vs variants +0.011 [+0.000,+0.022]  b0.2: w 0.294 c 0.211 vs variants +0.019 [+0.010,+0.030]  b0.3: w 0.290 c 0.298 vs variants +0.025 [+0.014,+0.036]
+   utterance confidence                   b0.05: w 0.308 c 0.049  b0.1: w 0.297 c 0.100  b0.2: w 0.282 c 0.197  b0.3: w 0.276 c 0.306
+   lowest word confidence                 b0.05: w 0.317 c 0.047 d +0.010 [+0.001,+0.018]  b0.1: w 0.300 c 0.107 d +0.004 [-0.005,+0.012]  b0.2: w 0.280 c 0.199 d -0.002 [-0.011,+0.006]  b0.3: w 0.273 c 0.302 d -0.004 [-0.010,+0.002]
+   argument-word confidence               b0.05: w 0.310 c 0.047 d +0.002 [-0.008,+0.013]  b0.1: w 0.297 c 0.105 d +0.000 [-0.012,+0.012]  b0.2: w 0.285 c 0.195 d +0.002 [-0.010,+0.014]  b0.3: w 0.276 c 0.297 d +0.000 [-0.010,+0.010]
+   n-best disagreement                    b0.05: w 0.322 c 0.016 d +0.014 [+0.006,+0.024]  b0.1: w 0.314 c 0.058 d +0.017 [+0.006,+0.029]  b0.2: w 0.286 c 0.168 d +0.004 [-0.007,+0.014]  b0.3: w 0.277 c 0.195 d +0.001 [-0.011,+0.012]
+   disagreement, then argument confidence b0.05: w 0.310 c 0.042 d +0.002 [-0.008,+0.013]  b0.1: w 0.294 c 0.104 d -0.002 [-0.016,+0.011]  b0.2: w 0.275 c 0.197 d -0.007 [-0.018,+0.002]  b0.3: w 0.264 c 0.297 d -0.012 [-0.023,-0.002]
+
+== phone_babble5  n=829  acc heard 0.645  said 0.732  wrong actions 290 (hearing-caused 85)  missed 4
+   never                                  wrong 0.350  confirm 0.000
+   always                                 wrong 0.247  confirm 0.862
+   oracle                                 wrong 0.247  confirm 0.103
+   n-best disagrees (any)                 wrong 0.265  confirm 0.364
+   second recogniser disagrees            wrong 0.262  confirm 0.194
+   either disagrees                       wrong 0.252  confirm 0.399
+   utterance confidence                   b0.05: w 0.323 c 0.057  b0.1: w 0.309 c 0.107  b0.2: w 0.290 c 0.209  b0.3: w 0.275 c 0.298
+   lowest word confidence                 b0.05: w 0.333 c 0.043 d +0.010 [+0.000,+0.019]  b0.1: w 0.314 c 0.097 d +0.005 [-0.007,+0.018]  b0.2: w 0.297 c 0.203 d +0.007 [-0.005,+0.019]  b0.3: w 0.273 c 0.300 d -0.002 [-0.013,+0.008]
+   argument-word confidence               b0.05: w 0.329 c 0.051 d +0.006 [-0.004,+0.016]  b0.1: w 0.310 c 0.103 d +0.001 [-0.011,+0.013]  b0.2: w 0.287 c 0.200 d -0.002 [-0.014,+0.010]  b0.3: w 0.281 c 0.299 d +0.006 [-0.006,+0.018]
+   n-best disagreement                    b0.05: w 0.340 c 0.018 d +0.017 [+0.008,+0.027]  b0.1: w 0.322 c 0.069 d +0.013 [+0.001,+0.027]  b0.2: w 0.299 c 0.140 d +0.010 [-0.004,+0.024]  b0.3: w 0.280 c 0.224 d +0.005 [-0.008,+0.019]
+   disagreement, then argument confidence b0.05: w 0.329 c 0.046 d +0.006 [-0.004,+0.016]  b0.1: w 0.305 c 0.099 d -0.004 [-0.016,+0.010]  b0.2: w 0.283 c 0.199 d -0.006 [-0.019,+0.006]  b0.3: w 0.267 c 0.306 d -0.008 [-0.022,+0.004]
+
+== phone_babble0  n=829  acc heard 0.368  said 0.732  wrong actions 469 (hearing-caused 285)  missed 55
+   never                                  wrong 0.566  confirm 0.000
+   always                                 wrong 0.222  confirm 0.801
+   oracle                                 wrong 0.222  confirm 0.344
+   n-best disagrees (any)                 wrong 0.262  confirm 0.577
+   second recogniser disagrees            wrong 0.275  confirm 0.503
+   either disagrees                       wrong 0.238  confirm 0.638
+   utterance confidence                   b0.05: w 0.533 c 0.049  b0.1: w 0.498 c 0.101  b0.2: w 0.443 c 0.195  b0.3: w 0.393 c 0.302
+   lowest word confidence                 b0.05: w 0.536 c 0.052 d +0.002 [-0.010,+0.014]  b0.1: w 0.514 c 0.100 d +0.016 [-0.004,+0.034]  b0.2: w 0.457 c 0.204 d +0.014 [-0.008,+0.039]  b0.3: w 0.408 c 0.305 d +0.014 [-0.008,+0.037]
+   argument-word confidence               b0.05: w 0.538 c 0.045 d +0.005 [-0.008,+0.018]  b0.1: w 0.507 c 0.094 d +0.008 [-0.010,+0.028]  b0.2: w 0.450 c 0.199 d +0.007 [-0.014,+0.029]  b0.3: w 0.385 c 0.304 d -0.008 [-0.033,+0.017]
+   n-best disagreement                    b0.05: w 0.566 c 0.000 d +0.033 [+0.022,+0.045]  b0.1: w 0.566 c 0.000 d +0.068 [+0.051,+0.086]  b0.2: w 0.495 c 0.104 d +0.052 [+0.030,+0.075]  b0.3: w 0.410 c 0.248 d +0.017 [-0.008,+0.042]
+   disagreement, then argument confidence b0.05: w 0.536 c 0.047 d +0.002 [-0.012,+0.017]  b0.1: w 0.505 c 0.090 d +0.007 [-0.012,+0.028]  b0.2: w 0.438 c 0.204 d -0.005 [-0.027,+0.017]  b0.3: w 0.370 c 0.310 d -0.023 [-0.047,+0.001]
